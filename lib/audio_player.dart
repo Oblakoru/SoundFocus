@@ -9,7 +9,7 @@ class RelaxingPlayer extends StatefulWidget {
   final IconData iconData;
 
   const RelaxingPlayer(
-      {required this.imeZvoka,
+      {super.key, required this.imeZvoka,
       required this.potDoZvoka,
       required this.iconData});
 
@@ -17,10 +17,11 @@ class RelaxingPlayer extends StatefulWidget {
   _RelaxingPlayerState createState() => _RelaxingPlayerState();
 }
 
-class _RelaxingPlayerState extends State<RelaxingPlayer> {
+class _RelaxingPlayerState extends State<RelaxingPlayer> with AutomaticKeepAliveClientMixin<RelaxingPlayer> {
   bool isPlaying = false;
   double _currentSliderValue = 0;
   var player = AudioPlayer();
+
 
   @override
   void initState() {
@@ -28,6 +29,7 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> {
 
     // Set your variables here
     player.setVolume(0);
+    
   }
 
   @override
@@ -75,11 +77,20 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> {
                   isPlaying = false;
                 });
               } else {
+
                 await player.play(AssetSource(
                     widget.potDoZvoka)); // will immediately start playing
                 setState(() {
                   isPlaying = true;
                 });
+
+                player.onPlayerComplete.listen((event) {
+                  setState(() {
+                     player.play(AssetSource(
+                     widget.potDoZvoka));
+                  });
+                });
+                //await player.setVolume(0.5);
               }
             },
             child: Icon(isPlaying ? Icons.stop : Icons.play_arrow)),
@@ -107,4 +118,7 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> {
       ],
     );
   }
+  
+  @override
+  bool get wantKeepAlive => true;
 }
