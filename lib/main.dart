@@ -45,18 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
          
-          RelaxingPlayer(imeZvoka: "Rain", potDoZvoka: "rain.mp3", iconData: Icons.water ,),
+         RelaxingPlayer(imeZvoka: "Rain", potDoZvoka: "rain.mp3", iconData: Icons.water ,),
 
-          RelaxingPlayer(imeZvoka: "Fire", potDoZvoka: "fire.mp3", iconData: Icons.sunny,),
+         RelaxingPlayer(imeZvoka: "Fire", potDoZvoka: "fire.mp3", iconData: Icons.sunny,),
 
-          RelaxingPlayer(imeZvoka: "Wind", potDoZvoka: "wind.mp3", iconData: Icons.wind_power),
+         RelaxingPlayer(imeZvoka: "Wind", potDoZvoka: "wind.mp3", iconData: Icons.wind_power),
 
           RelaxingPlayer(imeZvoka: "River", potDoZvoka: "river.mp3", iconData: Icons.water_drop,),
 
-          RelaxingPlayer(imeZvoka: "Thunder", potDoZvoka: "thunder.mp3", iconData: Icons.thunderstorm,),
+         RelaxingPlayer(imeZvoka: "Thunder", potDoZvoka: "thunder.mp3", iconData: Icons.thunderstorm,),
         ],
       ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
