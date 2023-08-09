@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Remove the debug banner
-      title: 'Sound_Focus',
+      title: 'Sound Focus',
       theme: ThemeData(
         //colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
@@ -58,17 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        backgroundColor: const Color.fromRGBO(33, 33, 33, 1),
+        backgroundColor: Colors.grey.shade900, //const Color.fromRGBO(33, 33, 33, 1), const color: 
         appBar: AppBar(
-          backgroundColor: const Color.fromRGBO(109, 152, 134, 1),
+          backgroundColor: Colors.black54, //const Color.fromRGBO(109, 152, 134, 1),
           title: const Text(
-            "Sound_Focus",
+            "Sound Focus",
             style: TextStyle(color: Colors.white),
           ),
           bottom: const TabBar(
             unselectedLabelColor: Color.fromRGBO(246, 246, 246, 1),
             labelColor: Color.fromRGBO(246, 246, 246, 1),
-            indicatorColor: Color.fromRGBO(246, 246, 246, 1),
+            indicatorColor: Colors.greenAccent,
             tabs: [
               Tab(
                 icon: Icon(

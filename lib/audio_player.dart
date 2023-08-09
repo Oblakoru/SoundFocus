@@ -50,10 +50,8 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> with AutomaticKeepAlive
       children: [
         Icon(
           widget.iconData,
-          size: 50,
-          color: isPlaying
-              ? const Color.fromRGBO(217, 202, 179, 1.0)
-              : const Color.fromRGBO(246, 246, 246, 1),
+          size: 30,
+          color: isPlaying? Colors.greenAccent : const Color.fromRGBO(246, 246, 246, 1),
         ),
         Container(
           alignment: Alignment.center,
@@ -65,12 +63,13 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> with AutomaticKeepAlive
           ),
         ),
         const SizedBox(
-          width: 20,
+          width: 10,
         ),
-        FloatingActionButton(
-            backgroundColor: const Color.fromRGBO(217, 202, 179, 1.0),
-            foregroundColor: const Color.fromRGBO(246, 246, 246, 1),
-            hoverColor: const Color.fromRGBO(109, 152, 134, 1),
+        FloatingActionButton.small(
+            
+            backgroundColor: isPlaying ?  Colors.greenAccent: Colors.white, //const Color.fromRGBO(217, 202, 179, 1.0),
+            foregroundColor: Colors.grey.shade900, //const Color.fromRGBO(246, 246, 246, 1),
+            hoverColor: Colors.greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
             onPressed: () async {
               if (isPlaying) {
                 await player.pause();
@@ -94,17 +93,17 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> with AutomaticKeepAlive
                 //await player.setVolume(0.5);
               }
             },
-            child: Icon(isPlaying ? Icons.stop : Icons.play_arrow)),
+            child: Icon(isPlaying ? Icons.stop : Icons.play_arrow),),
         //FloatingActionButton(
         //    onPressed: () async {
         //      await player1.stop(); // will immediately start playing
         //    },
         //    child:  Icon(isPlaying ? Icons.play_arrow : Icons.stop)),
         const SizedBox(
-          width: 20,
+          width: 10,
         ),
         Slider(
-          activeColor: const Color.fromRGBO(109, 152, 134, 1),
+          activeColor: Colors.greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
           value: _currentSliderValue,
           max: 1,
           divisions: 20,
