@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sound_focus/audio_player.dart';
 import 'dart:async';
 
+import 'package:sound_focus/pomodoro.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -120,30 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          _isActive = !_isActive;
-                          if (_isActive) {
-                            _startTimer();
-                          } else {
-                            _stopTimer();
-                          }
-                        });
-                      },
-                      child: const Text("Start")),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    "$_seconds seconds ",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
+              child: Pomodoro(),
             ),
           ],
         ),

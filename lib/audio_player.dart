@@ -106,7 +106,7 @@ class _RelaxingPlayerState extends State<RelaxingPlayer> with AutomaticKeepAlive
           activeColor: Colors.greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
           value: _currentSliderValue,
           max: 1,
-          divisions: 20,
+          divisions: 100,
           label: _currentSliderValue.toString(),
           onChanged: (double value) {
             setState(() {
