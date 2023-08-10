@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:timer_count_down/timer_controller.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
@@ -11,10 +14,20 @@ class Pomodoro extends StatefulWidget {
 
 class _PomodoroState extends State<Pomodoro>
     with AutomaticKeepAliveClientMixin<Pomodoro> {
-  final CountdownController _controller =
-      new CountdownController(autoStart: true);
+  TextEditingController _textController = TextEditingController();
 
-  late double time;
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
+
+  final CountdownController _controller =
+      new CountdownController(autoStart: false);
+
+  //late double time;
+  bool isTimer = false;
+  int zacetniCas = 600;
 
   @override
   Widget build(BuildContext context) {
@@ -23,54 +36,78 @@ class _PomodoroState extends State<Pomodoro>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Template https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        Column(
+          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ElevatedButton(
-              child: const Text('Start'),
-              onPressed: () {
-                _controller.start();
-              },
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            // Pause
-            ElevatedButton(
-              child: const Text('Pause'),
-              onPressed: () {
-                _controller.pause();
-              },
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            // Resume
-            ElevatedButton(
-              child: const Text('Resume'),
-              onPressed: () {
-                _controller.resume();
-              },
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-            // Stop
-            ElevatedButton(
-              child: const Text('Restart'),
-              onPressed: () {
-                _controller.restart();
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 200,
+                  child: TextField(
+                    style: const TextStyle(color: Colors.white),
+                    controller: _textController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: const InputDecoration(
+                      hintText: 'Vnesi čas učenja',
+                      hintStyle: TextStyle(color: Colors.white),
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      if (_textController.text == '' ||
+                          _textController.text == '0') {
+                      } else {
+                        isTimer = true;
+                        zacetniCas = int.parse(_textController.text) * 60;
+                        _controller.start();
+                      }
+                    });
+                  },
+                  child: Icon(
+                    Icons.timer_outlined,
+                  ),
+                  backgroundColor: Colors.greenAccent,
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                FloatingActionButton(
+                  onPressed: () {
+                    setState(() {
+                      if (isTimer) {
+                        isTimer = !isTimer;
+                        _controller.pause();
+                      } else {
+                        isTimer = !isTimer;
+                        _controller.resume();
+                      }
+                    });
+                  },
+                  child: Icon(
+                    !isTimer ? Icons.play_arrow : Icons.pause,
+                  ),
+                  backgroundColor: Colors.greenAccent,
+                ),
+                
+                
+              ],
             ),
           ],
         ),
         Countdown(
           controller: _controller,
-          seconds: 2 * 60,
+          seconds: zacetniCas,
           build: (BuildContext context, time) {
-            
-            double progress = 1 - (time / (2 * 60));
-
+            double progress = 1 - (time / (zacetniCas));
 
             int minute = time ~/ 60;
             int sekunde = (time % 60).truncate();
@@ -80,7 +117,7 @@ class _PomodoroState extends State<Pomodoro>
               sekunde = 0; // Reset seconds to 0
             }
 
-             // Assuming you're using 20 seconds
+            // Assuming you're using 20 seconds
             //if (time == (0)) {
             //  // Show alert when timer finishes
             //  Future.delayed(Duration.zero, () {
@@ -109,10 +146,9 @@ class _PomodoroState extends State<Pomodoro>
           },
           interval: const Duration(milliseconds: 100),
           onFinished: () {
-            print('Timer is done!');
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Timer is done!'),
+                content: Text('Konec!'),
               ),
             );
           },
@@ -122,25 +158,25 @@ class _PomodoroState extends State<Pomodoro>
   }
 
   // Function to show an alert
-  void _showAlert(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Timer Finished'),
-          content: const Text('The timer has finished.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context); // Close the alert
-              },
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //void _showAlert(BuildContext context) {
+  //  showDialog(
+  //    context: context,
+  //    builder: (BuildContext context) {
+  //      return AlertDialog(
+  //        title: const Text('Timer Finished'),
+  //        content: const Text('The timer has finished.'),
+  //        actions: [
+  //          TextButton(
+  //            onPressed: () {
+  //              Navigator.pop(context); // Close the alert
+  //            },
+  //            child: const Text('OK'),
+  //          ),
+  //        ],
+  //      );
+  //    },
+  //  );
+  //}
 
   @override
   bool get wantKeepAlive => true;
