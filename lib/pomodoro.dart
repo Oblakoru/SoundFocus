@@ -32,7 +32,7 @@ class _PomodoroState extends State<Pomodoro>
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Template https://github.com/DizoftTeam/simple_count_down/blob/master/example/lib/main.dart
@@ -61,14 +61,17 @@ class _PomodoroState extends State<Pomodoro>
                   width: 20,
                 ),
                 FloatingActionButton(
+                  tooltip: "Start",
                   onPressed: () {
                     setState(() {
                       if (_textController.text == '' ||
-                          _textController.text == '0') {
+                          int.parse(_textController.text) == 0) {
                       } else {
                         isTimer = true;
                         zacetniCas = int.parse(_textController.text) * 60;
                         _controller.start();
+                        print("hej");
+                        _textController.clear();
                       }
                     });
                   },
@@ -81,6 +84,7 @@ class _PomodoroState extends State<Pomodoro>
                   width: 20,
                 ),
                 FloatingActionButton(
+                  tooltip: "Play/Pause",
                   onPressed: () {
                     setState(() {
                       if (isTimer) {
@@ -146,6 +150,7 @@ class _PomodoroState extends State<Pomodoro>
           },
           interval: const Duration(milliseconds: 100),
           onFinished: () {
+            SystemSound.play(SystemSoundType.alert);
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Konec!'),
