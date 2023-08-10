@@ -20,7 +20,7 @@ class _PomodoroState extends State<Pomodoro> with AutomaticKeepAliveClientMixin<
         if (time == 0) {
           // Show alert when timer finishes
           Future.delayed(Duration.zero, () {
-            _showAlert(context);
+            //_showAlert(context);
           });
         }
 
@@ -66,6 +66,5 @@ class _PomodoroState extends State<Pomodoro> with AutomaticKeepAliveClientMixin<
   }
   
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

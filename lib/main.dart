@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:audioplayers/audioplayers.dart';
 import 'package:sound_focus/audio_player.dart';
 import 'dart:async';
-
+import 'package:flutter/services.dart';
 import 'package:sound_focus/pomodoro.dart';
 
 void main() {
@@ -14,6 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Remove the debug banner
       title: 'Sound Focus',
@@ -34,25 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _seconds = 0;
-  bool _isActive = false;
-  Timer? _timer;
-
-  void _startTimer() {
-    if (_timer == null || !_timer!.isActive) {
-      _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-        setState(() {
-          _seconds++;
-        });
-      });
-    }
-  }
-
-  void _stopTimer() {
-    if (_timer != null && _timer!.isActive) {
-      _timer!.cancel();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
