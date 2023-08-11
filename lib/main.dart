@@ -15,9 +15,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-        DeviceOrientation.portraitDown,
-      ]);
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       debugShowCheckedModeBanner: false, // Remove the debug banner
       title: 'Sound Focus',
@@ -38,21 +38,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.grey.shade900, //const Color.fromRGBO(33, 33, 33, 1), const color: 
+        backgroundColor: Colors.grey.shade900,
+
+        //flexibleSpace je z namenom, da naslov ni prikazan
         appBar: AppBar(
-          backgroundColor: Colors.black54, //const Color.fromRGBO(109, 152, 134, 1),
-          title: const Text(
-            "Sound Focus",
-            style: TextStyle(color: Colors.white),
-          ),
-          bottom: const TabBar(
+          toolbarHeight: 70,
+          backgroundColor: Colors.black54,
+          flexibleSpace: const SafeArea(
+              child: TabBar(
             unselectedLabelColor: Color.fromRGBO(246, 246, 246, 1),
             labelColor: Color.fromRGBO(246, 246, 246, 1),
             indicatorColor: Colors.greenAccent,
@@ -72,10 +71,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 text: "Pomodoro",
               ),
             ],
-          ),
+          )),
         ),
+
         body: const TabBarView(
           children: [
+            //Razdeli Tab na dva dela
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

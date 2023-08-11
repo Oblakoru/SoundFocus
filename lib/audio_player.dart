@@ -2,8 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class RelaxingPlayer extends StatefulWidget {
-  //final IconData iconData;
-  //final VoidCallback onPressed;
+
   final String imeZvoka;
   final String potDoZvoka;
   final IconData iconData;
@@ -27,30 +26,28 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
   @override
   void initState() {
     super.initState();
-
-    // Set your variables here
     player.setVolume(0);
   }
 
+
   @override
   void dispose() {
-    // Cleanup resources in the dispose method
-    player.dispose(); // Cancel the stream subscription
-
+    player.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    //player.setVolume(0);
+
+    
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
+
+        //Pridobitev velikosti zaslona
         double screenWidth = MediaQuery.of(context).size.width;
-        //print('Screen Width: $screenWidth');
-
         bool isPhone = screenWidth < 600;
-        //print('isPhone: $isPhone');
 
+        //Vrnemo drugačen widget glede na velikost zaslona (telefon ima odstranjeno besedilo)
         if (!isPhone) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -78,11 +75,11 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
               FloatingActionButton.small(
                 backgroundColor: isPlaying
                     ? Colors.greenAccent
-                    : Colors.white, //const Color.fromRGBO(217, 202, 179, 1.0),
+                    : Colors.white, 
                 foregroundColor: Colors
-                    .grey.shade900, //const Color.fromRGBO(246, 246, 246, 1),
+                    .grey.shade900, 
                 hoverColor: Colors
-                    .greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
+                    .greenAccent, 
                 onPressed: () async {
                   if (isPlaying) {
                     await player.pause();
@@ -101,22 +98,16 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
                         player.play(AssetSource(widget.potDoZvoka));
                       });
                     });
-                    //await player.setVolume(0.5);
                   }
                 },
                 child: Icon(isPlaying ? Icons.stop : Icons.play_arrow),
               ),
-              //FloatingActionButton(
-              //    onPressed: () async {
-              //      await player1.stop(); // will immediately start playing
-              //    },
-              //    child:  Icon(isPlaying ? Icons.play_arrow : Icons.stop)),
               const SizedBox(
                 width: 10,
               ),
               Slider(
                 activeColor: Colors
-                    .greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
+                    .greenAccent, 
                 value: _currentSliderValue,
                 max: 1,
                 divisions: 100,
@@ -145,11 +136,11 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
               FloatingActionButton.small(
                 backgroundColor: isPlaying
                     ? Colors.greenAccent
-                    : Colors.white, //const Color.fromRGBO(217, 202, 179, 1.0),
+                    : Colors.white, 
                 foregroundColor: Colors
-                    .grey.shade900, //const Color.fromRGBO(246, 246, 246, 1),
+                    .grey.shade900,
                 hoverColor: Colors
-                    .greenAccent, //const Color.fromRGBO(109, 152, 134, 1),
+                    .greenAccent,
                 onPressed: () async {
                   if (isPlaying) {
                     await player.pause();
@@ -158,7 +149,7 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
                     });
                   } else {
                     await player.play(AssetSource(
-                        widget.potDoZvoka)); // will immediately start playing
+                        widget.potDoZvoka));
                     setState(() {
                       isPlaying = true;
                     });
@@ -168,16 +159,10 @@ class _RelaxingPlayerState extends State<RelaxingPlayer>
                         player.play(AssetSource(widget.potDoZvoka));
                       });
                     });
-                    //await player.setVolume(0.5);
                   }
                 },
                 child: Icon(isPlaying ? Icons.stop : Icons.play_arrow),
               ),
-              //FloatingActionButton(
-              //    onPressed: () async {
-              //      await player1.stop(); // will immediately start playing
-              //    },
-              //    child:  Icon(isPlaying ? Icons.play_arrow : Icons.stop)),
               Slider(
                 activeColor: Colors
                     .greenAccent, //const Color.fromRGBO(109, 152, 134, 1),

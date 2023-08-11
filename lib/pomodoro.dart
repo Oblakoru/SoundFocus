@@ -16,14 +16,14 @@ class _PomodoroState extends State<Pomodoro>
     with AutomaticKeepAliveClientMixin<Pomodoro> {
   TextEditingController _textController = TextEditingController();
 
+  final CountdownController _controller =
+      new CountdownController(autoStart: false);
+
   @override
   void dispose() {
     _textController.dispose();
     super.dispose();
   }
-
-  final CountdownController _controller =
-      new CountdownController(autoStart: false);
 
   //late double time;
   bool isTimer = false;
@@ -68,9 +68,15 @@ class _PomodoroState extends State<Pomodoro>
                           int.parse(_textController.text) == 0) {
                       } else {
                         isTimer = true;
-                        zacetniCas = int.parse(_textController.text) * 60;
-                        _controller.start();
-                        print("hej");
+                        if (zacetniCas ==
+                            int.parse(_textController.text) * 60) {
+                          _controller.restart();
+                        } else {
+                          zacetniCas = int.parse(_textController.text) * 60;
+                          _controller.start();
+                          //print("hej");
+                          
+                        }
                         _textController.clear();
                       }
                     });
@@ -101,8 +107,6 @@ class _PomodoroState extends State<Pomodoro>
                   ),
                   backgroundColor: Colors.greenAccent,
                 ),
-                
-                
               ],
             ),
           ],
@@ -112,7 +116,6 @@ class _PomodoroState extends State<Pomodoro>
           seconds: zacetniCas,
           build: (BuildContext context, time) {
             double progress = 1 - (time / (zacetniCas));
-
             int minute = time ~/ 60;
             int sekunde = (time % 60).truncate();
 
