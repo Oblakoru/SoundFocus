@@ -7,10 +7,8 @@ Relaxify is a Flutter application designed to create a soothing environment by p
 ## Screenshots
 
 ![Screenshot 1](screenshots/sound_focus_JaWy8LQoD7.png)
-*Main Screen - Toggling background noises*
 
 ![Screenshot 2](screenshots/sound_focus_wu9SxvQ1Hs.png)
-*Pomodoro Timer - Enhance focus and productivity*
 
 ## Features
 
